@@ -6,11 +6,13 @@ import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
+import java.util.Optional;
 
 @Repository
 public class EmployeeDao {
     @Autowired
     JdbcTemplate jdbcTemplate;
+
 
     public List<Employee> findAll() {
         return jdbcTemplate.query(
@@ -23,30 +25,37 @@ public class EmployeeDao {
                         )
         );
     }
-   /* public Employee getById(Long id) {
-        return jdbcTemplate.queryForObject(
-                "select employee_id,last_name,first_name from employee where employee_id = ?",
-                new Employee{String.toString(id)},
 
+    public Optional<Employee> findById(Long id) {
+        return jdbcTemplate.queryForObject(
+                "select * from employee where employee_id = ?",
+                new Object[]{id},
+                (rs, rowNum) ->
+                        Optional.of(new Employee(
+                                rs.getLong("employee_id"),
+                                rs.getString("last_name"),
+                                rs.getString("last_name")
+                        ))
         );
-    }*/
-   /* public int save(Employee employee) {
-        return jdbcTemplate.update(
-                "insert into employee (last_name, first_name) values(?,?)",
-                Employee.getLastName(), Employee.getFirstName());
     }
+    public void save(Employee employee) {
+        jdbcTemplate.update(
+                "insert into employee (employee_id,first_name, last_name) values(?,?,?)",
+                employee.getEmployeeId(),employee.getFirstName(), employee.getLastName());
+    }
+    /*
 
     public int update(Employee employee) {
         return jdbcTemplate.update(
-                "update books set price = ? where id = ?",
-                employee.getPrice(), employee.getId());
+                "update employee set last_name = ?, first_name = ?, = ? where id = ?",
+                employee.getLastName(),employee.getFirstName(), employee.getEmployeeId());
     }*/
 
 
 
-    public int deleteById(Long id) {
-        return jdbcTemplate.update(
-                "delete employee where employee_id = ?",
+    public void deleteById(Long id) {
+         jdbcTemplate.update(
+                "delete  from employee where employee_id = ?",
                 id);
     }
 }

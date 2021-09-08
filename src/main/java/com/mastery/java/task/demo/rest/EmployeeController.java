@@ -1,5 +1,6 @@
 package com.mastery.java.task.demo.rest;
 
+import com.mastery.java.task.demo.dto.Employee;
 import com.mastery.java.task.demo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
@@ -16,10 +17,10 @@ public class EmployeeController {
     return employeeService.findTest().toString();
     }
 
-  /*  @GetMapping("{id}")
+   @GetMapping("{id}")
     public String getOne(@PathVariable String id) {
-        return employeeService.getById(id).toString();
-    }*/
+        return employeeService.getById(Long.valueOf(id)).toString();
+    }
 
     /*@PutMapping("{id}")
     public Map<String, String> update(@PathVariable String id, @RequestBody Map<String, String> message) {
@@ -31,15 +32,11 @@ public class EmployeeController {
         return messageFromDb;
     }*/
 
-    /*@PostMapping
-    public List<Employee> create(@RequestBody Map<String, String> message) {
-        message.put("id", String.valueOf(counter++));
-
-        messages.add(message);
-
-        return message;
+    @PostMapping
+    public void create( @RequestBody Employee employeeWith) {
+         employeeService.save(employeeWith.getEmployeeId(),employeeWith.getLastName(),employeeWith.getFirstName());
     }
-*/
+
     @DeleteMapping("{id}")
     public void delete(@PathVariable String id) {
 
