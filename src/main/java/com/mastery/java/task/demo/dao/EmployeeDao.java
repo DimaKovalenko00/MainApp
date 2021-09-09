@@ -54,16 +54,16 @@ public class EmployeeDao {
 
 
     public int update(Employee employee) {
-        return jdbcTemplate.update(
+        if (employee.getEmployeeId!= null){return jdbcTemplate.update(
                 "update employee set first_name = ?, last_name = ?, department_id = ?, job_title = ?, gender = ?, date_of_birth= ?  where employee_id = ?",
-                employee.getFirstName(), employee.getLastName(),employee.getDepartmentId(), employee.getJobTitle(), employee.getGender(),employee.getDateOfBirth(), employee.getEmployeeId());
+                employee.getFirstName(), employee.getLastName(),employee.getDepartmentId(), employee.getJobTitle(), employee.getGender(),employee.getDateOfBirth(), employee.getEmployeeId());}
     }
 
 
 
     public void deleteById(Long id) {
-         jdbcTemplate.update(
+         if(id!=0){jdbcTemplate.update(
                 "delete  from employee where employee_id = ?",
-                id);
+                id);}
     }
 }

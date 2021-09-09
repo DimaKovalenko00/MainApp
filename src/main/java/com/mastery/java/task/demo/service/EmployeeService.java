@@ -3,7 +3,6 @@ package com.mastery.java.task.demo.service;
 import com.mastery.java.task.demo.dao.EmployeeDao;
 import com.mastery.java.task.demo.dao.NamedParameterJdbcEmployee;
 import com.mastery.java.task.demo.dto.Employee;
-import com.mastery.java.task.demo.dto.Gender;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
