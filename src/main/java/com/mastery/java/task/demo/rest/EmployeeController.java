@@ -6,6 +6,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.Map;
+
 @RestController
 @RequestMapping("/employee")
 public class EmployeeController {
@@ -22,19 +24,14 @@ public class EmployeeController {
         return employeeService.getById(Long.valueOf(id)).toString();
     }
 
-    /*@PutMapping("{id}")
-    public Map<String, String> update(@PathVariable String id, @RequestBody Map<String, String> message) {
-        Map<String, String> messageFromDb = getMessage(id);
-
-        messageFromDb.putAll(message);
-        messageFromDb.put("id", id);
-
-        return messageFromDb;
-    }*/
+    @PutMapping("{id}")
+    public void  update(@PathVariable String id, @RequestBody Employee employeeWith) {
+       employeeService.update(employeeWith.getEmployeeId(),employeeWith.getLastName(),employeeWith.getFirstName(),employeeWith.getDepartmentId(), employeeWith.getJobTitle(), employeeWith.getGender(),employeeWith.getDateOfBirth());
+    }
 
     @PostMapping
     public void create( @RequestBody Employee employeeWith) {
-         employeeService.save(employeeWith.getEmployeeId(),employeeWith.getLastName(),employeeWith.getFirstName());
+         employeeService.save(employeeWith.getEmployeeId(),employeeWith.getLastName(),employeeWith.getFirstName(),employeeWith.getDepartmentId(), employeeWith.getJobTitle(), employeeWith.getGender(),employeeWith.getDateOfBirth());
     }
 
     @DeleteMapping("{id}")

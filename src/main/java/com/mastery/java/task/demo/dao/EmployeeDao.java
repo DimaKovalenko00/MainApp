@@ -16,12 +16,16 @@ public class EmployeeDao {
 
     public List<Employee> findAll() {
         return jdbcTemplate.query(
-                "select employee_id,last_name,first_name from employee",
+                "select * from employee",
                 (rs, rowNum) ->
                         new Employee(
                                 rs.getLong("employee_id"),
+                                rs.getString("first_name"),
                                 rs.getString("last_name"),
-                                rs.getString("first_name")
+                                rs.getLong("department_id"),
+                                rs.getString("job_title"),
+                                rs.getString("gender"),
+                                rs.getDate("date_of_birth")
                         )
         );
     }
@@ -33,23 +37,27 @@ public class EmployeeDao {
                 (rs, rowNum) ->
                         Optional.of(new Employee(
                                 rs.getLong("employee_id"),
+                                rs.getString("first_name"),
                                 rs.getString("last_name"),
-                                rs.getString("last_name")
+                                rs.getLong("department_id"),
+                                rs.getString("job_title"),
+                                rs.getString("gender"),
+                                rs.getDate("date_of_birth")
                         ))
         );
     }
     public void save(Employee employee) {
         jdbcTemplate.update(
-                "insert into employee (employee_id,first_name, last_name) values(?,?,?)",
-                employee.getEmployeeId(),employee.getFirstName(), employee.getLastName());
+                "insert into employee (employee_id,first_name, last_name,department_id, job_title, gender, date_of_birth) values(?,?,?,?,?,?,?)",
+                employee.getEmployeeId(),employee.getFirstName(), employee.getLastName(), employee.getDepartmentId(), employee.getJobTitle(), employee.getGender(),employee.getDateOfBirth());
     }
-    /*
+
 
     public int update(Employee employee) {
         return jdbcTemplate.update(
-                "update employee set last_name = ?, first_name = ?, = ? where id = ?",
-                employee.getLastName(),employee.getFirstName(), employee.getEmployeeId());
-    }*/
+                "update employee set first_name = ?, last_name = ?, department_id = ?, job_title = ?, gender = ?, date_of_birth= ?  where employee_id = ?",
+                employee.getFirstName(), employee.getLastName(),employee.getDepartmentId(), employee.getJobTitle(), employee.getGender(),employee.getDateOfBirth(), employee.getEmployeeId());
+    }
 
 
 
