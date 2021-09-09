@@ -17,7 +17,7 @@ public class EmployeeService {
 
     @Autowired
     private NamedParameterJdbcEmployee namedParameterJdbcEmployee;
-    public List<Employee> findTest(){
+    public List<Employee> findAll(){
 
         return employeeDao.findAll();
     }

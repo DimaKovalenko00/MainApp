@@ -13,8 +13,8 @@ public class EmployeeController {
     private EmployeeService employeeService;
 
     @GetMapping()
-    public String findAll( Model model) {
-    return employeeService.findTest().toString();
+    public String findAll( ) {
+    return employeeService.findAll().toString();
     }
 
    @GetMapping("{id}")
@@ -23,7 +23,7 @@ public class EmployeeController {
     }
 
     @PutMapping("{id}")
-    public void  update(@PathVariable String id, @RequestBody Employee employeeWith) {
+    public void  update( @RequestBody Employee employeeWith) {
        employeeService.update(employeeWith.getEmployeeId(),employeeWith.getLastName(),employeeWith.getFirstName(),employeeWith.getDepartmentId(), employeeWith.getJobTitle(), employeeWith.getGender(),employeeWith.getDateOfBirth());
     }
 
