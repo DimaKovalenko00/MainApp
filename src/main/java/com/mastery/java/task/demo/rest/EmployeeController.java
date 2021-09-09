@@ -3,7 +3,6 @@ package com.mastery.java.task.demo.rest;
 import com.mastery.java.task.demo.dto.Employee;
 import com.mastery.java.task.demo.service.EmployeeService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
